@@ -4,13 +4,8 @@ var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 
 io.on("connection", (socket) => {
-  socket.on("boasvindas", (data) => {
-    console.log(data);
-  });
-
-  socket.on("palavra", data =>{
-    console.log(data)
-    socket.emit("resultado", data + " - teste")
+  socket.on("disconnect", ()=>{
+    console.log("X desconectado: " + socket.id)
   })
 
 });
