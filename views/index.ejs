@@ -6,7 +6,10 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Teste!</h1>
+    <input type="text" name="" id="palavra" oninput="enviar()" />
+    <button>Enviar</button>
+    <hr />
+    <p id="resultado"></p>
   </body>
   <script
     src="https://cdn.socket.io/4.6.0/socket.io.min.js"
@@ -15,5 +18,18 @@
   ></script>
   <script>
     var socket = io("http://localhost:3001");
+    socket.emit("boasvindas", { nome: "Gustavo S." });
+
+    socket.on("resultado", (data) => {
+      console.log(data);
+
+      var p = document.getElementById("resultado");
+      p.innerHTML = data;
+    });
+
+    function enviar() {
+      var input = document.getElementById("palavra");
+      socket.emit("palavra", input.value);
+    }
   </script>
 </html>
